@@ -30,6 +30,10 @@
   width: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 img {
   vertical-align: bottom;
   border-radius: 6px;
@@ -79,4 +83,53 @@ ul {
 
 .gallery-image:hover {
   transform: scale(1.03);
+}
+
+.feedback-form {
+  width: 300px;
+  padding: 20px;
+}
+
+.feedback-form input {
+  width: 300px;
+  height: 40px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #888888;
+  outline: 0;
+}
+
+.feedback-form input:focus {
+  border: 1px solid #ff3939;
+}
+
+.feedback-form textarea {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  resize: none;
+  border-radius: 6px;
+  border: 1px solid #888888;
+  outline: 0;
+}
+
+.feedback-form textarea:focus {
+  border: 1px solid #ff3939;
+}
+
+.feedback-form button {
+  font-family: Helvetica;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  width: 150px;
+  height: 40px;
+  background-color: #ff3939;
+  border: none;
+  border-radius: 6px;
+}
+
+.feedback-form button:active {
+  background-color: #ee2929;
 }
