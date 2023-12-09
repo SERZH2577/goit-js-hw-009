@@ -1,8 +1,9 @@
 const feedbackFormRef = document.querySelector('.feedback-form');
-const btnRef = document.querySelector('.feedback-form button');
+
+const STORAGE_KEY = 'feedback-form-state';
 
 feedbackFormRef.addEventListener('input', onAddsDataToLocalStorage);
-btnRef.addEventListener('click', onSubmitsDataAndClearsForm);
+feedbackFormRef.addEventListener('click', onSubmitsDataAndClearsForm);
 
 const formData = {
   email: '',
@@ -12,9 +13,8 @@ const formData = {
 fillsFormFromLocalStorage(feedbackFormRef);
 
 function onAddsDataToLocalStorage(e) {
-  if (e.target.name === 'email') formData.email = e.target.value;
-
-  if (e.target.name === 'message') formData.message = e.target.value;
+  if (e.target.name === 'email') formData.email = e.target.value.trim();
+  if (e.target.name === 'message') formData.message = e.target.value.trim();
 
   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
 }
@@ -22,25 +22,27 @@ function onAddsDataToLocalStorage(e) {
 function onSubmitsDataAndClearsForm(e) {
   e.preventDefault();
 
-  if (formData.email !== '' && formData.message !== '') {
-    feedbackFormRef.reset();
-    localStorage.removeItem('feedback-form-state');
-    formData.email = '';
-    formData.message = '';
-  }
+  if (e.target.type === 'submit')
+    if (formData.email !== '' && formData.message !== '') {
+      console.log(formData);
+
+      e.currentTarget.reset();
+      localStorage.removeItem('feedback-form-state');
+      formData.email = '';
+      formData.message = '';
+    } else {
+      alert('Все поля должны быть заполнены!');
+    }
 }
 
 function fillsFormFromLocalStorage(form) {
-  const savedSettings = JSON.parse(localStorage.getItem('feedback-form-state'));
+  const objFromLocalStorage = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-  if (savedSettings !== null) {
-    formData.email = savedSettings.email;
-    formData.message = savedSettings.message;
+  if (objFromLocalStorage !== null) {
+    formData.email = objFromLocalStorage.email;
+    formData.message = objFromLocalStorage.message;
 
-    form[0].value = savedSettings.email;
-    form[1].value = savedSettings.message;
-  } else {
-    formData.email = '';
-    formData.message = '';
+    form[0].value = objFromLocalStorage.email;
+    form[1].value = objFromLocalStorage.message;
   }
 }
