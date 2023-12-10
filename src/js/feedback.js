@@ -23,8 +23,11 @@ function onSubmitsDataAndClearsForm(e) {
   e.preventDefault();
 
   if (e.target.type === 'submit')
-    if (formData.email !== '' && formData.message !== '') {
-      console.log(formData);
+    if (formData.email && formData.message) {
+      console.log({
+        email: formData.email,
+        message: formData.message,
+      });
 
       e.currentTarget.reset();
       localStorage.removeItem('feedback-form-state');
